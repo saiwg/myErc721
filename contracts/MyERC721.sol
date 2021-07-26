@@ -9,14 +9,20 @@ contract MyERC721 is Ownable, ERC721Enumerable {
     using Strings for uint256;
     using Counters for Counters.Counter;
 
+    // Token description
+    string private _desc;
     Counters.Counter private _tokenIdTracker;
     
     // Optional mapping for token URIs
     mapping(uint256 => string) private _tokenURIs;
 
-    constructor(string memory name_, string memory symbol_) ERC721(name_, symbol_) {
+    constructor(string memory name_, string memory symbol_, string memory desc_) ERC721(name_, symbol_) {
+        _desc = desc_;
     }
 
+    function desc() public view returns (string memory) {
+        return _desc;
+    }
 
     function mint(address to, string memory tokenUri) public {
         require(bytes(tokenUri).length > 0, "MyERC721: tokenUri shoud not be null");
